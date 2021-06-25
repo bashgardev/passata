@@ -1,0 +1,12 @@
+{
+  "name": "passata",
+  "displayName": "passata",
+  "expo": {
+    "name": "passata",
+    "slug": "passata",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
