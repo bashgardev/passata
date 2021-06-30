@@ -3,6 +3,7 @@
   "displayName": "passata",
   "expo": {
     "name": "passata",
+    "appkey": "passata",
     "slug": "passata",
     "version": "1.0.0",
     "assetBundlePatterns": [
