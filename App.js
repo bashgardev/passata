@@ -1,6 +1,13 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState, useEffect } from "react";
-import { StyleSheet, TouchableOpacity, Text, View, Button } from "react-native";
+import {
+  StyleSheet,
+  TouchableOpacity,
+  Text,
+  View,
+  Button,
+  Vibration,
+} from "react-native";
 import { styles, button } from "./styles";
 import { AppButton } from "./AppButton";
 import { Appearance } from "react-native";
@@ -13,8 +20,16 @@ import { Appearance } from "react-native";
 // TODO: add animations, make it pretty
 
 export default function App() {
+  const DEFAULT_POMODORO = 1500000;
+  const SHORT_BREAK = 300000;
+  const LONG_BREAK = 900000;
   const [timerOn, setTimerOn] = useState(false);
-  const [timer, setTimer] = useState(1500000);
+  const [timer, setTimer] = useState(DEFAULT_POMODORO);
+
+  const [shortBreakTimer, setshortBreakTimer] = useState(SHORT_BREAK);
+  const [longBreakTimer, longhortBreakTimer] = useState(LONG_BREAK);
+
+  const [timerText, setTimerText] = useState("Working");
 
   // const [startTime, setStartTime] = useState(0);
   // const [endTime, setEndTime] = useState(0);
@@ -25,6 +40,13 @@ export default function App() {
   if (colorScheme === "dark") {
     isDarkMode = true;
   }
+
+  useEffect(() => {
+    if (timer < 1000) {
+      resetTimer();
+    }
+    return () => {};
+  }, [timer]);
 
   useEffect(() => {
     let interval = null;
@@ -56,10 +78,24 @@ export default function App() {
   };
 
   const resetTimer = () => {
-    setTimerOn(false);
-    setTimer(1500000);
+    stopTimer();
+    Vibration.vibrate();
+    setTimer(DEFAULT_POMODORO);
+    setTimerText("Working");
     // setStartTime(0);
     // setEndTime(0);
+  };
+
+  const chooseShortBreak = () => {
+    setTimer(shortBreakTimer);
+    setTimerOn(true);
+    setTimerText("Short Break");
+  };
+
+  const chooseLongBreak = () => {
+    setTimer(longBreakTimer);
+    setTimerOn(true);
+    setTimerText("Long Break");
   };
 
   return (
@@ -76,12 +112,38 @@ export default function App() {
           {("0" + Math.floor((timer / 60000) % 60)).slice(-2)}:
           {("0" + Math.floor((timer / 1000) % 60)).slice(-2)}
         </Text>
+        <Text
+          style={
+            isDarkMode
+              ? { fontSize: 20, color: "white" }
+              : { fontSize: 20, color: "grey" }
+          }
+        >
+          {timerText}
+        </Text>
       </View>
       {/* <Text>timerOn: {timerOn ? "true" : "false"}</Text>
       <Text>startTime: {startTime}</Text>
       <Text>endTime: {endTime}</Text>
       <Text>delta: {timer}</Text> */}
-
+      <View style={styles.buttonSection}>
+        {!timerOn && (
+          <AppButton
+            width="60%"
+            style={styles.shortButton}
+            onPress={chooseShortBreak}
+            title="Short Break"
+          ></AppButton>
+        )}
+        {!timerOn && (
+          <AppButton
+            width="60%"
+            style={styles.longButton}
+            onPress={chooseLongBreak}
+            title="Long Break"
+          ></AppButton>
+        )}
+      </View>
       <View style={styles.buttonSection}>
         {timerOn ? (
           <AppButton

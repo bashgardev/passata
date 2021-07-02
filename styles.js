@@ -18,7 +18,7 @@ export const styles = StyleSheet.create({
     margin: 10,
   },
   timerSection: {
-    flex: 3,
+    flex: 6,
     alignSelf: "stretch",
     alignItems: "center",
     justifyContent: "center",
@@ -59,8 +59,26 @@ export const styles = StyleSheet.create({
     borderRadius: 15,
     margin: 5,
   },
+  shortButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "goldenrod",
+    padding: 10,
+    borderRadius: 15,
+    margin: 5,
+  },
+  longButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "tomato",
+    padding: 10,
+    borderRadius: 15,
+    margin: 5,
+  },
   buttonText: {
     fontSize: 20,
-    color: 'white',
+    color: "white",
   },
 });
