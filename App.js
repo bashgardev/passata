@@ -5,6 +5,13 @@ import { styles, button } from "./styles";
 import { AppButton } from "./AppButton";
 import { Appearance } from "react-native";
 
+// TODO: add pomodoro technique logic
+// (work, short break) x 4 then long break
+// TODO: add custom timer values
+// TODO: add interface for app settings
+// TODO: add notification functionality sound + vibrate
+// TODO: add animations, make it pretty
+
 export default function App() {
   const [timerOn, setTimerOn] = useState(false);
   const [timer, setTimer] = useState(1500000);
